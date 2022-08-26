@@ -1,2 +1,4 @@
-# js-chromium-sdk
-JavaScript Chromium SDK for ConfigCat. ConfigCat is a hosted feature flag service: https://configcat.com. Manage feature toggles across frontend, backend, mobile, desktop apps. Alternative to LaunchDarkly. Management app + feature flag SDKs.
+# ConfigCat SDK for JavaScript Chromium Applications
+https://configcat.com
+
+This is a work in progress SDK to support Chrome Extension development. It is not yet ready for production use.
