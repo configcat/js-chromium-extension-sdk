@@ -1,9 +1,10 @@
 import { IConfigFetcher, OptionsBase, FetchResult, ProjectConfig } from "configcat-common";
+import { v4 as uuidv4 } from 'uuid';
 
 export class HttpConfigFetcher implements IConfigFetcher {
     fetchLogic(options: OptionsBase, lastEtag: string, callback: (result: FetchResult) => void): void {
         const fetchId = Math.round(Math.random() * 100000);
-        const alarmName = `fetcher-${fetchId}`;
+        const alarmName = `fetcher-${uuidv4()}`;
         if (options.requestTimeoutMs) {
             chrome.alarms.create(alarmName, { when: Date.now() + options.requestTimeoutMs });
 
