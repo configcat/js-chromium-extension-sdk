@@ -3,18 +3,18 @@ import { ICache, ProjectConfig } from "configcat-common";
 export class LocalStorageCache implements ICache {
     cache: { [key: string]: ProjectConfig } = {};
 
-    set(key: string, config: ProjectConfig): void {
+    set(key: string, config: ProjectConfig): Promise<void> | void {
         this.cache[key] = config;
         const obj = {};
         obj[key] = btoa(JSON.stringify(config));
         try {
             chrome.storage.local.set(obj);
         } catch (ex) {
-            // chrome storage local is unavailable
+            // chrome storage is unavailable
         }
     }
 
-    get(key: string): ProjectConfig {
+    get(key: string): Promise<ProjectConfig | null> | ProjectConfig | null {
         const config: ProjectConfig = this.cache[key];
         if (config) {
             return config;
@@ -32,7 +32,7 @@ export class LocalStorageCache implements ICache {
                 }
             });
         } catch (ex) {
-            // chrome storage local is unavailable or invalid cache value.
+            // chrome storage is unavailable or invalid cache value.
         }
 
         return null;

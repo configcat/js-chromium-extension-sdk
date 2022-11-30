@@ -24,7 +24,7 @@ export function createClientWithAutoPoll(sdkKey: string, options?: IJSAutoPollOp
         {
             configFetcher: new HttpConfigFetcher(),
             cache: new LocalStorageCache(),
-            sdkType: "ConfigCat-JS",
+            sdkType: "ConfigCat-JS-Chromium",
             sdkVersion: CONFIGCAT_SDK_VERSION,
         },
         options,
@@ -42,7 +42,7 @@ export function createClientWithManualPoll(sdkKey: string, options?: IJSManualPo
         {
             configFetcher: new HttpConfigFetcher(),
             cache: new LocalStorageCache(),
-            sdkType: "ConfigCat-JS",
+            sdkType: "ConfigCat-JS-Chromium",
             sdkVersion: CONFIGCAT_SDK_VERSION,
         },
         options,
@@ -60,7 +60,7 @@ export function createClientWithLazyLoad(sdkKey: string, options?: IJSLazyLoadin
         {
             configFetcher: new HttpConfigFetcher(),
             cache: new LocalStorageCache(),
-            sdkType: "ConfigCat-JS",
+            sdkType: "ConfigCat-JS-Chromium",
             sdkVersion: CONFIGCAT_SDK_VERSION,
         },
         options,
