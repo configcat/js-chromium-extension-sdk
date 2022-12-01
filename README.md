@@ -57,6 +57,17 @@ configCatClient.getValue("isMyAwesomeFeatureEnabled", false, (value) => {
 });
 ```
 
+### Permissions
+The SDK uses the [Storage API](https://developer.chrome.com/docs/extensions/reference/storage/) to store cached content. To let it use the API declare the `storage` permission in your `manifest.json`.
+
+```json
+...
+"permissions": [
+    "storage"
+],
+...
+```
+
 ## Getting user specific setting values with Targeting
 Using this feature, you will be able to get different setting values for different users in your application by passing a `User Object` to `getValue()` or `getValueAsync()`.
 
