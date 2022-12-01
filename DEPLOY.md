@@ -12,6 +12,8 @@ Make sure the CI is running: https://github.com/configcat/js-chromium-extension-
 
 1. Add release notes: https://github.com/configcat/js-chromium-extension-sdk/releases
 
+1. Update `configcat-js-chromium-extension` dependency in all sample applications, and test them by following their `README.md`.
+
 or
 
 ## Steps to deploy manually
@@ -41,3 +43,5 @@ Increase version number by using `npm version patch | minor | major`
 1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-js-chromium-extension
 
 1. Add release notes: https://github.com/configcat/js-chromium-extension-sdk/releases
+
+1. Update `configcat-js-chromium-extension` dependency in all sample applications, and test them by following their `README.md`.
