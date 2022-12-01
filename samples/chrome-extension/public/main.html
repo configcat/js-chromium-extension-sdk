@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>ConfigCat Sample Extension</title>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <div class="app">
+      <h2>Simple feature flag.</h2>
+      <button id="checkAwesome">Check if Awesome Feature is turned ON</button>
+      <p>Value returned from ConfigCat: <strong><span id="isAwesomeEnabled"></span></strong></p>
+      <br/>
+      <h2>Feature with Targeting</h2>
+      <p> Set up to be enabled only for users with an e-mail address that contains "@example.com"</p>
+      <input type="text" id="userEmail" value="configcat@example.com">
+      <button id="checkProofOfConcept">Check POC feature with Email</button>
+      <p>Value returned from ConfigCat: <strong><span id="isPOCEnabled"></span></strong></p>
+    </div>
+
+    <script src="main.js"></script>
+
+  </body>
+</html>

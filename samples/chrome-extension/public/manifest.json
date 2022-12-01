@@ -1,0 +1,18 @@
+{
+  "manifest_version": 3,
+  "name": "ConfigCat Sample Extension",
+  "version": "0.1.0",
+  "description": "ConfigCat Sample Extension",
+  "action": {
+    "default_title": "ConfigCat Sample Extension",
+    "default_icon": {
+      "16": "icons/configcat_16.png",
+      "32": "icons/configcat_32.png",
+      "48": "icons/configcat_48.png"
+    },
+    "default_popup": "main.html"
+  },
+  "permissions": [
+    "storage"
+  ]
+}
