@@ -2,15 +2,15 @@
 
 ## Before deployment
 
-Make sure the CI is running: https://github.com/configcat/js-chromium-sdk/actions/workflows/js-chromium-ci.yml
+Make sure the CI is running: https://github.com/configcat/js-chromium-extension-sdk/actions/workflows/js-chromium-ci.yml
 
 ## Updating `configcat-common` only
 
 1. Run `./deploy.sh`
 
-1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-js-chromium
+1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-js-chromium-extension
 
-1. Add release notes: https://github.com/configcat/js-chromium-sdk/releases
+1. Add release notes: https://github.com/configcat/js-chromium-extension-sdk/releases
 
 or
 
@@ -36,8 +36,8 @@ Increase version number by using `npm version patch | minor | major`
     ```
     *Example: git push origin v1.1.17*
 
-    You can follow the build status here -> https://github.com/configcat/js-chromium-sdk/actions/workflows/js-chromium-ci.yml
+    You can follow the build status here -> https://github.com/configcat/js-chromium-extension-sdk/actions/workflows/js-chromium-ci.yml
 
-1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-js-chromium
+1. Make sure new package is available via NPM: https://www.npmjs.com/package/configcat-js-chromium-extension
 
-1. Add release notes: https://github.com/configcat/js-chromium-sdk/releases
+1. Add release notes: https://github.com/configcat/js-chromium-extension-sdk/releases

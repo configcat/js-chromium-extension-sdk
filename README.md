@@ -7,26 +7,26 @@ ConfigCat is a feature flag and configuration management service that lets you s
 
 ConfigCat is a <a href="https://configcat.com" target="_blank">hosted feature flag service</a>. Manage feature toggles across frontend, backend, mobile, desktop apps. <a href="https://configcat.com" target="_blank">Alternative to LaunchDarkly</a>. Management app + feature flag SDKs.
 
-[![JS-CHROMIUM CI](https://github.com/configcat/js-chromium-sdk/actions/workflows/js-chromium-ci.yml/badge.svg?branch=master)](https://github.com/configcat/js-chromium-sdk/actions/workflows/js-chromium-ci.yml) 
-[![Known Vulnerabilities](https://snyk.io/test/github/configcat/js-chromium-sdk/badge.svg?targetFile=package.json)](https://snyk.io/test/github/configcat/js-chromium-sdk?targetFile=package.json) 
-![License](https://img.shields.io/github/license/configcat/js-chromium-sdk.svg) 
-[![](https://data.jsdelivr.com/v1/package/npm/configcat-js-chromium/badge)](https://www.jsdelivr.com/package/npm/configcat-js-chromium)
-[![NPM](https://nodei.co/npm/configcat-js-chromium.png)](https://nodei.co/npm/configcat-js-chromium/)
+[![JS-CHROMIUM CI](https://github.com/configcat/js-chromium-extension-sdk/actions/workflows/js-chromium-ci.yml/badge.svg?branch=master)](https://github.com/configcat/js-chromium-extension-sdk/actions/workflows/js-chromium-ci.yml) 
+[![Known Vulnerabilities](https://snyk.io/test/github/configcat/js-chromium-extension-sdk/badge.svg?targetFile=package.json)](https://snyk.io/test/github/configcat/js-chromium-extension-sdk?targetFile=package.json) 
+![License](https://img.shields.io/github/license/configcat/js-chromium-extension-sdk.svg) 
+[![](https://data.jsdelivr.com/v1/package/npm/configcat-js-chromium-extension/badge)](https://www.jsdelivr.com/package/npm/configcat-js-chromium-extension)
+[![NPM](https://nodei.co/npm/configcat-js-chromium-extension.png)](https://nodei.co/npm/configcat-js-chromium-extension/)
 
 ## Getting Started
 
 ### 1. Install and import package:
 
-*via NPM [package](https://npmjs.com/package/configcat-js-chromium):*
+*via NPM [package](https://npmjs.com/package/configcat-js-chromium-extension):*
 ```PowerShell
-npm i configcat-js-chromium
+npm i configcat-js-chromium-extension
 ```
 ```js
-import * as configcat from "configcat-js-chromium";
+import * as configcat from "configcat-js-chromium-extension";
 ```
 
 ### 2. Go to the <a href="https://app.configcat.com/sdkkey" target="_blank">ConfigCat Dashboard</a> to get your *SDK Key*:
-![SDK-KEY](https://raw.githubusercontent.com/ConfigCat/js-chromium-sdk/master/media/readme02-3.png  "SDK-KEY")
+![SDK-KEY](https://raw.githubusercontent.com/ConfigCat/js-chromium-extension-sdk/master/media/readme02-3.png  "SDK-KEY")
 
 ### 3. Create a *ConfigCat* client instance:
 ```js
@@ -74,7 +74,7 @@ configCatClient.getValueAsync("isMyAwesomeFeatureEnabled", false, userObject)
 ```
 
 ## Sample/Demo apps
-  - [Chrome Extension](https://github.com/configcat/js-chromium-sdk/tree/master/samples/chrome-extension)
+  - [Chrome Extension](https://github.com/configcat/js-chromium-extension-sdk/tree/master/samples/chrome-extension)
 
 ## Polling Modes
 The ConfigCat SDK supports 3 different polling mechanisms to acquire the setting values from ConfigCat. After latest setting values are downloaded, they are stored in the internal cache then all requests are served from there. Read more about Polling Modes and how to use them at [ConfigCat Docs](https://configcat.com/docs/sdk-reference/js).
@@ -89,12 +89,12 @@ Also, we recommend using [sensitive targeting comparators](https://configcat.com
 ## Browser compatibility
 This SDK should be compatible with all modern browsers.
 
-The SDK is [tested](https://github.com/configcat/js-chromium-sdk/blob/master/.github/workflows/js-chromium-ci.yml) against the following browsers:
+The SDK is [tested](https://github.com/configcat/js-chromium-extension-sdk/blob/master/.github/workflows/js-chromium-ci.yml) against the following browsers:
 - Chrome (stable, latest, beta)
 - Chromium (72.0.3626.0, 80.0.3987.0)
 
 These tests are running on each pull request, before each deploy, and on a daily basis. 
-You can view a sample run [here](https://github.com/configcat/js-chromium-sdk/actions/runs/3583606237).
+You can view a sample run [here](https://github.com/configcat/js-chromium-extension-sdk/actions/runs/3583606237).
 
 ## Need help?
 https://configcat.com/support

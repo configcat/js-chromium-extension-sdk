@@ -1,5 +1,5 @@
 {
-    "name": "configcat-js-chromium",
+    "name": "configcat-js-chromium-extension",
     "version": "0.0.1",
     "description": "ConfigCat is a configuration as a service that lets you manage your features and configurations without actually deploying new code.",
     "main": "lib/index.js",
