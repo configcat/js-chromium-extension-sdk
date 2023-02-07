@@ -32,7 +32,7 @@
     "license": "MIT",
     "homepage": "https://configcat.com",
     "dependencies": {
-        "@types/chrome": "0.0.193",
+        "@types/chrome": "0.0.208",
         "configcat-common": "^6.0.1"
     },
     "devDependencies": {
