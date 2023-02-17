@@ -6,7 +6,7 @@ tests/
 coverage/
 gulpfile.js
 package-lock.json
-tsconfig.*.json
+tsconfig*.json
 .gitignore
 .travis.yml
 *.tgz
