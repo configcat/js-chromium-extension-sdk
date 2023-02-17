@@ -1,6 +1,7 @@
 {
   /* Common TS compiler settings for compilation outputs, IDEs (like VSCode) and test runner (Karma+Mocha) */
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "strict": true,
     "target": "ESNext",
     "importHelpers": true,
