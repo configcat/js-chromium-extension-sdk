@@ -1,33 +1,50 @@
-import { IConfigFetcher, OptionsBase, FetchResult } from "configcat-common";
+import { IConfigFetcher, OptionsBase, FetchError, IFetchResponse } from "configcat-common";
 
 export class HttpConfigFetcher implements IConfigFetcher {
-    fetchLogic(options: OptionsBase, lastEtag: string, callback: (result: FetchResult) => void): void {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), options.requestTimeoutMs);
+    async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {
+        const requestInit: RequestInit = { method: "GET" };
+        let cleanup: () => void;
 
-        fetch(options.getUrl(), {
-            method: "GET",
-            signal: controller.signal
-        }).then(async (response) => {
-            if (response.status === 200) {
-                const text = await response.text();
-                const etag = response.headers && response.headers.get("Etag");
-                clearTimeout(timeoutId);
-                callback(FetchResult.success(text, etag ?? ""));
-            } else if (response.status === 304) {
-                clearTimeout(timeoutId);
-                callback(FetchResult.notModified());
-            } else {
-                options.logger.error(
-                    `Failed to download feature flags & settings from ConfigCat. ${response.status} - ${response.statusText}`,
-                );
-                clearTimeout(timeoutId);
-                callback(FetchResult.error());
+        // NOTE: Older Chromium versions (e.g. the one used in our tests) may not support AbortController.
+        if (typeof AbortController !== "undefined") {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), options.requestTimeoutMs);
+            requestInit.signal = controller.signal;
+            cleanup = () => clearTimeout(timeoutId);
+        }
+        else {
+            cleanup = () => { };
+        }
+
+        try {
+            // NOTE: It's intentional that we don't specify the If-None-Match header.
+            // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
+            const response = await fetch(options.getUrl(), requestInit);
+
+            const { status: statusCode, statusText: reasonPhrase } = response;
+            if (statusCode === 200) {
+                const body = await response.text();
+                const eTag = response.headers?.get("Etag") ?? void 0;
+                return { statusCode, reasonPhrase, eTag, body };
             }
-        }).catch((error) => {
-            options.logger.error(`Failed to download feature flags & settings from ConfigCat. Error: ${error}`);
-            clearTimeout(timeoutId);
-            callback(FetchResult.error());
-        });
+            else {
+                return { statusCode, reasonPhrase };
+            }
+        }
+        catch (err) {
+            if (err instanceof DOMException && err.name == "AbortError") {
+                if (requestInit.signal?.aborted) {
+                    throw new FetchError("timeout", options.requestTimeoutMs);
+                }
+                else {
+                    throw new FetchError("abort");
+                }
+            }
+
+            throw new FetchError("failure", err);
+        }
+        finally {
+            cleanup();
+        }
     }
 }
