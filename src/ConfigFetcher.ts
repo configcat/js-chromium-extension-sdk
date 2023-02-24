@@ -1,4 +1,5 @@
-import { IConfigFetcher, OptionsBase, FetchError, IFetchResponse } from "configcat-common";
+import type { IConfigFetcher, OptionsBase, IFetchResponse } from "configcat-common";
+import { FetchError } from "configcat-common";
 
 export class HttpConfigFetcher implements IConfigFetcher {
   async fetchLogic(options: OptionsBase, lastEtag: string | null): Promise<IFetchResponse> {
