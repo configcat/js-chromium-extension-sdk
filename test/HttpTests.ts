@@ -31,7 +31,7 @@ describe("HTTP tests", () => {
         const defaultValue = "NOT_CAT";
         assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-        assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Request timed out.")));
+        assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Request timed out.")));
       }
       finally {
         fetchMock.reset();
@@ -56,7 +56,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Double-check your SDK Key")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Double-check your SDK Key")));
     }
     finally {
       fetchMock.reset();
@@ -80,7 +80,7 @@ describe("HTTP tests", () => {
       const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Unexpected HTTP response was received:")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Unexpected HTTP response was received:")));
     }
     finally {
       fetchMock.reset();
@@ -107,7 +107,7 @@ describe("HTTP tests", () => {
 
       console.log(logger.messages);
 
-      assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Request failed due to a network or protocol error.")));
+      assert.isDefined(logger.messages.find(([level, msg]) => level === LogLevel.Error && msg.startsWith("Request failed due to a network or protocol error.")));
     }
     finally {
       fetchMock.reset();

@@ -32,7 +32,7 @@ export class HttpConfigFetcher implements IConfigFetcher {
       }
     }
     catch (err) {
-      if (err instanceof DOMException && err.name == "AbortError") {
+      if (err instanceof DOMException && err.name === "AbortError") {
         if (requestInit.signal?.aborted) {
           throw new FetchError("timeout", options.requestTimeoutMs);
         }
