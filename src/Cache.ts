@@ -12,7 +12,8 @@ export class LocalStorageCache implements ICache {
         chrome.storage.local.set(obj).then(() => {
           resolve();
         });
-      } catch (ex) {
+      }
+      catch (ex) {
         // chrome storage is unavailable
         resolve();
       }
@@ -42,7 +43,8 @@ export class LocalStorageCache implements ICache {
           }
           resolve(null);
         });
-      } catch (ex) {
+      }
+      catch (ex) {
         // chrome storage is unavailable or invalid cache value.
         resolve(null);
       }
