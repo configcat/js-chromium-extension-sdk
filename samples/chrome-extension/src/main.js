@@ -21,7 +21,7 @@ import * as configcat from 'configcat-js-chromium-extension'
     });
 
     document.getElementById('checkProofOfConcept').addEventListener('click', () => {
-      const userEmail =  document.getElementById('userEmail').value;
+      const userEmail = document.getElementById('userEmail').value;
       const userObject = new User('#SOME-USER-ID#', userEmail);
 
       configCatClient.getValueAsync("isPOCFeatureEnabled", false, userObject).then(value => {

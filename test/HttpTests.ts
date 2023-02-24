@@ -11,13 +11,13 @@ describe("HTTP tests", () => {
   if (typeof AbortController !== "undefined") {
     it("HTTP timeout", async () => {
       const requestTimeoutMs = 1500;
-  
+
       fetchMock.get(url => url.startsWith(baseUrl),
         new Promise(resolve => setTimeout(() => resolve({ throws: new Error("Test failed.") }), requestTimeoutMs * 2)));
-  
+
       try {
         const logger = new FakeLogger();
-  
+
         const client = configcatClient.createClientWithManualPoll(sdkKey, {
           requestTimeoutMs,
           baseUrl,
@@ -27,16 +27,16 @@ describe("HTTP tests", () => {
         await client.forceRefreshAsync();
         const duration = new Date().getTime() - startTime;
         assert.isTrue(duration > 1000 && duration < 2000);
-  
+
         const defaultValue = "NOT_CAT"
         assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
-    
+
         assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Request timed out.")));
       }
       finally {
         fetchMock.reset();
       }
-    }); 
+    });
   }
 
   it("404 Not found", async () => {
@@ -62,7 +62,7 @@ describe("HTTP tests", () => {
       fetchMock.reset();
     }
   });
-    
+
   it("Unexpected status code", async () => {
     fetchMock.get(url => url.startsWith(baseUrl), 502);
 
@@ -99,12 +99,12 @@ describe("HTTP tests", () => {
         baseUrl,
         logger
       });
-  
+
       await client.forceRefreshAsync();
-  
+
       const defaultValue = "NOT_CAT"
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
-  
+
       console.log(logger.messages);
 
       assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Request failed due to a network or protocol error.")));

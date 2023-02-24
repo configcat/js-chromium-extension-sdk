@@ -61,13 +61,13 @@ const config = (_env, argv) => {
         filename: '[name].css',
       }),
     ],
-  
+
     resolve: {
       modules: ['src', 'node_modules'],
     },
-  
+
     devtool: isProd ? false : 'inline-source-map',
-  
+
     optimization: {
       minimize: isProd,
     },
