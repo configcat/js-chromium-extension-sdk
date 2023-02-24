@@ -3,7 +3,7 @@
 import { LogLevel, PollingMode, User } from 'configcat-js-chromium-extension';
 import * as configcat from 'configcat-js-chromium-extension'
 
-(function () {
+(function() {
   // Setting log level Info to show detailed feature flag evaluation
   const logger = configcat.createConsoleLogger(LogLevel.Info);
 
