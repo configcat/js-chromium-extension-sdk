@@ -1,7 +1,7 @@
 'use strict';
 
 import { LogLevel, PollingMode, User } from 'configcat-js-chromium-extension';
-import * as configcat from 'configcat-js-chromium-extension'
+import * as configcat from 'configcat-js-chromium-extension';
 
 (function() {
   // Setting log level Info to show detailed feature flag evaluation

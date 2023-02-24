@@ -28,7 +28,7 @@ describe("HTTP tests", () => {
         const duration = new Date().getTime() - startTime;
         assert.isTrue(duration > 1000 && duration < 2000);
 
-        const defaultValue = "NOT_CAT"
+        const defaultValue = "NOT_CAT";
         assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
         assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Request timed out.")));
@@ -53,7 +53,7 @@ describe("HTTP tests", () => {
 
       await client.forceRefreshAsync();
 
-      const defaultValue = "NOT_CAT"
+      const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
       assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Double-check your SDK Key")));
@@ -77,7 +77,7 @@ describe("HTTP tests", () => {
 
       await client.forceRefreshAsync();
 
-      const defaultValue = "NOT_CAT"
+      const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
       assert.isDefined(logger.messages.find(([level, msg]) => level == LogLevel.Error && msg.startsWith("Unexpected HTTP response was received:")));
@@ -102,7 +102,7 @@ describe("HTTP tests", () => {
 
       await client.forceRefreshAsync();
 
-      const defaultValue = "NOT_CAT"
+      const defaultValue = "NOT_CAT";
       assert.strictEqual(defaultValue, await client.getValueAsync("stringDefaultCat", defaultValue));
 
       console.log(logger.messages);

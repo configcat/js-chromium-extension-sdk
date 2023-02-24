@@ -12,7 +12,7 @@ const PATHS = {
 const IMAGE_TYPES = /\.(png|jpe?g|gif|svg)$/i;
 
 const config = (_env, argv) => {
-  const isProd = argv.mode === 'production'
+  const isProd = argv.mode === 'production';
   return {
     output: {
       path: PATHS.build,
