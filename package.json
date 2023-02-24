@@ -34,6 +34,7 @@
   "dependencies": {
     "@types/chrome": "0.0.193",
     "configcat-common": "^7.0.1",
+    "eslint-plugin-import": "^2.27.5",
     "tslib": "^2.4.1"
   },
   "devDependencies": {

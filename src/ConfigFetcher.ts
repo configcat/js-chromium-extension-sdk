@@ -1,4 +1,4 @@
-import type { IConfigFetcher, OptionsBase, IFetchResponse } from "configcat-common";
+import type { IConfigFetcher, IFetchResponse, OptionsBase } from "configcat-common";
 import { FetchError } from "configcat-common";
 
 export class HttpConfigFetcher implements IConfigFetcher {
