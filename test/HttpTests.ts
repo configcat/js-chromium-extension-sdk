@@ -1,6 +1,6 @@
 import { assert } from "chai";
 import * as configcatClient from "../src/index";
-import fetchMock from 'fetch-mock';
+import fetchMock from "fetch-mock";
 import { FakeLogger } from "./helpers/fakes";
 import { LogLevel } from "../src/index";
 
