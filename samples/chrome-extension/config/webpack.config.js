@@ -1,25 +1,25 @@
-'use strict';
+"use strict";
 
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const path = require('path');
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const path = require("path");
 
 const PATHS = {
-  src: path.resolve(__dirname, '../src'),
-  build: path.resolve(__dirname, '../build'),
+  src: path.resolve(__dirname, "../src"),
+  build: path.resolve(__dirname, "../build"),
 };
 
 const IMAGE_TYPES = /\.(png|jpe?g|gif|svg)$/i;
 
 const config = (_env, argv) => {
-  const isProd = argv.mode === 'production'
+  const isProd = argv.mode === "production";
   return {
     output: {
       path: PATHS.build,
-      filename: '[name].js',
+      filename: "[name].js",
     },
     entry: {
-      main: PATHS.src + '/main.js',
+      main: PATHS.src + "/main.js",
     },
     stats: {
       all: false,
@@ -32,16 +32,16 @@ const config = (_env, argv) => {
       rules: [
         {
           test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader'],
+          use: [MiniCssExtractPlugin.loader, "css-loader"],
         },
         {
           test: IMAGE_TYPES,
           use: [
             {
-              loader: 'file-loader',
+              loader: "file-loader",
               options: {
-                outputPath: 'images',
-                name: '[name].[ext]',
+                outputPath: "images",
+                name: "[name].[ext]",
               },
             },
           ],
@@ -52,22 +52,22 @@ const config = (_env, argv) => {
       new CopyWebpackPlugin({
         patterns: [
           {
-            from: '**/*',
-            context: 'public',
+            from: "**/*",
+            context: "public",
           },
         ],
       }),
       new MiniCssExtractPlugin({
-        filename: '[name].css',
+        filename: "[name].css",
       }),
     ],
-  
+
     resolve: {
-      modules: ['src', 'node_modules'],
+      modules: ["src", "node_modules"],
     },
-  
-    devtool: isProd ? false : 'inline-source-map',
-  
+
+    devtool: isProd ? false : "inline-source-map",
+
     optimization: {
       minimize: isProd,
     },
