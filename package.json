@@ -34,7 +34,6 @@
   "dependencies": {
     "@types/chrome": "0.0.193",
     "configcat-common": "^7.0.1",
-    "eslint-plugin-import": "^2.27.5",
     "tslib": "^2.4.1"
   },
   "devDependencies": {
@@ -48,6 +47,7 @@
     "core-js": "^3.24.1",
     "eslint": "^8.34.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "fetch-mock": "^9.11.0",
     "gulp": "^4.0.2",
