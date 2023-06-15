@@ -1,4 +1,4 @@
-# ConfigCat SDK for Chrome Extensions [Beta]
+# ConfigCat SDK for Chrome Extensions
 https://configcat.com
 
 ConfigCat SDK for Chrome extensions provides easy integration with ConfigCat feature flags.
@@ -32,7 +32,9 @@ import * as configcat from "configcat-js-chromium-extension";
 ```js
 var configCatClient = configcat.createClient("#YOUR-SDK-KEY#");
 ```
-> We strongly recommend using the *ConfigCat Client* as a Singleton object in your application.
+
+> You can acquire singleton client instances for your SDK keys using the `getClient("<sdkKey>")` factory function.
+(However, please keep in mind that subsequent calls to `getClient()` with the *same SDK Key* return a *shared* client instance, which was set up by the first call.)
 
 ### 4. Get your setting value:
 The Promise (async/await) way:
