@@ -1,7 +1,7 @@
-# ConfigCat SDK for Chrome Extensions
+# ConfigCat SDK for Chromium Extensions
 https://configcat.com
 
-ConfigCat SDK for Chrome extensions provides easy integration with ConfigCat feature flags.
+ConfigCat SDK for Chromium Extensions provides easy integration with ConfigCat feature flags.
 
 ConfigCat is a feature flag and configuration management service that lets you separate releases from deployments. You can turn your features ON/OFF using <a href="https://app.configcat.com" target="_blank">ConfigCat Dashboard</a> even after they are deployed. ConfigCat lets you target specific groups of users based on region, email or any other custom user attribute.
 
@@ -114,7 +114,7 @@ https://configcat.com/support
 Contributions are welcome.
 
 ## About ConfigCat
-- [Official ConfigCat SDK's for other platforms](https://github.com/configcat)
+- [Official ConfigCat SDKs for other platforms](https://github.com/configcat)
 - [Documentation](https://configcat.com/docs)
 - [Blog](https://blog.configcat.com)
 
