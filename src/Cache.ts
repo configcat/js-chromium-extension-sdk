@@ -1,25 +1,27 @@
-import type { IConfigCatCache } from "configcat-common";
+import type { IConfigCatCache, IConfigCatKernel } from "configcat-common";
+import { ExternalConfigCache } from "configcat-common";
 
 export class LocalStorageCache implements IConfigCatCache {
+  static setup(kernel: IConfigCatKernel, localStorageGetter?: () => chrome.storage.LocalStorageArea | null): IConfigCatKernel {
+    const localStorage = localStorageGetter?.() ?? window.chrome?.storage?.local;
+    if (localStorage) {
+      kernel.defaultCacheFactory = options => new ExternalConfigCache(new LocalStorageCache(localStorage), options.logger);
+    }
+    return kernel;
+  }
+
+  constructor(private readonly storage: chrome.storage.LocalStorageArea) {
+  }
+
   async set(key: string, value: string): Promise<void> {
-    try {
-      await chrome.storage.local.set({ [key]: toUtf8Base64(value) });
-    }
-    catch (ex) {
-      // chrome storage is unavailable
-    }
+    await this.storage.set({ [key]: toUtf8Base64(value) });
   }
 
   async get(key: string): Promise<string | undefined> {
-    try {
-      const cacheObj = await chrome.storage.local.get(key);
-      const configString = cacheObj[key];
-      if (configString) {
-        return fromUtf8Base64(configString);
-      }
-    }
-    catch (ex) {
-      // chrome storage is unavailable or invalid cache value.
+    const cacheObj = await this.storage.get(key);
+    const configString = cacheObj[key];
+    if (configString) {
+      return fromUtf8Base64(configString);
     }
   }
 }

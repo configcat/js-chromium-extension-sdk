@@ -1,5 +1,8 @@
 import { assert } from "chai";
+import { LogLevel } from "configcat-common";
 import { LocalStorageCache, fromUtf8Base64, toUtf8Base64 } from "../src/Cache";
+import { FakeLogger } from "./helpers/fakes";
+import { createClientWithLazyLoad } from "./helpers/utils";
 
 describe("Base64 encode/decode test", () => {
   let allBmpChars = "";
@@ -21,31 +24,71 @@ describe("Base64 encode/decode test", () => {
   }
 });
 
-let localStorage = {};
-
-global.chrome = <any>{
-  storage: {
-    local: {
-      clear: () => {
-        localStorage = {};
-      },
-      set: (toMergeIntoStorage: any) => {
-        localStorage = { ...localStorage, ...toMergeIntoStorage };
-      },
-      get: () => {
-        return localStorage;
-      }
-    },
-  }
-};
-
 describe("LocalStorageCache cache tests", () => {
   it("LocalStorageCache works with non latin 1 characters", async () => {
-    const cache = new LocalStorageCache();
+
+    const fakeLocalStorage = createFakeLocalStorage();
+    const cache = new LocalStorageCache(fakeLocalStorage);
     const key = "testkey";
     const text = "äöüÄÖÜçéèñışğâ¢™✓😀";
     await cache.set(key, text);
     const retrievedValue = await cache.get(key);
     assert.strictEqual(retrievedValue, text);
+    assert.strictEqual((await fakeLocalStorage.get(key))[key], "w6TDtsO8w4TDlsOcw6fDqcOow7HEscWfxJ/DosKi4oSi4pyT8J+YgA==");
+  });
+
+  it("Error is logged when LocalStorageCache.get throws", async () => {
+    const errorMessage = "Something went wrong.";
+    const faultyLocalStorage = Object.assign(createFakeLocalStorage(), {
+      get() { return Promise.reject(new Error(errorMessage)); }
+    });
+
+    const fakeLogger = new FakeLogger();
+
+    const client = createClientWithLazyLoad("configcat-sdk-1/PKDVCLf-Hq-h-kCzMp-L7Q/AG6C1ngVb0CvM07un6JisQ", { logger: fakeLogger },
+      kernel => LocalStorageCache.setup(kernel, () => faultyLocalStorage));
+
+    try { await client.getValueAsync("stringDefaultCat", ""); }
+    finally { client.dispose(); }
+
+    assert.isDefined(fakeLogger.events.find(([level, eventId, , err]) => level === LogLevel.Error && eventId === 2200 && err instanceof Error && err.message === errorMessage));
+  });
+
+  it("Error is logged when LocalStorageCache.set throws", async () => {
+    const errorMessage = "Something went wrong.";
+    const faultyLocalStorage = Object.assign(createFakeLocalStorage(), {
+      set() { return Promise.reject(new Error(errorMessage)); }
+    });
+
+    const fakeLogger = new FakeLogger();
+
+    const client = createClientWithLazyLoad("configcat-sdk-1/PKDVCLf-Hq-h-kCzMp-L7Q/AG6C1ngVb0CvM07un6JisQ", { logger: fakeLogger },
+      kernel => LocalStorageCache.setup(kernel, () => faultyLocalStorage));
+
+    try { await client.getValueAsync("stringDefaultCat", ""); }
+    finally { client.dispose(); }
+
+    assert.isDefined(fakeLogger.events.find(([level, eventId, , err]) => level === LogLevel.Error && eventId === 2201 && err instanceof Error && err.message === errorMessage));
   });
 });
+
+function createFakeLocalStorage(): chrome.storage.LocalStorageArea {
+  let localStorage: { [key: string]: any } = {};
+
+  return <Partial<chrome.storage.LocalStorageArea>>{
+    set(items: { [key: string]: any }) {
+      localStorage = { ...localStorage, ...items };
+      return Promise.resolve();
+    },
+    get(keys?: string | string[] | { [key: string]: any } | null) {
+      let result = localStorage;
+      if (typeof keys === "string") {
+        result = { [keys]: localStorage[keys] };
+      }
+      else if (keys != null) {
+        throw new Error("Not implemented.");
+      }
+      return Promise.resolve(result);
+    }
+  } as chrome.storage.LocalStorageArea;
+}
