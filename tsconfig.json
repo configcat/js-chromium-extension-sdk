@@ -6,5 +6,11 @@
     "target": "ESNext",
     "importHelpers": true,
     "moduleResolution": "Node"
-  }
+  },
+  "exclude": [
+    "**/node_modules/",
+    "lib/",
+    "dist/",
+    "samples/"
+  ]
 }
