@@ -18,9 +18,15 @@ export class HttpConfigFetcher implements IConfigFetcher {
     }
 
     try {
+      let url = options.getUrl();
+      if (lastEtag) {
+        // We are sending the etag as a query parameter so if the browser doesn't automatically adds the If-None-Match header, we can transform this query param to the header in our CDN provider.
+        url += "&ccetag=" + encodeURIComponent(lastEtag);
+      }
       // NOTE: It's intentional that we don't specify the If-None-Match header.
       // The browser automatically handles it, adding it manually would cause an unnecessary CORS OPTIONS request.
-      const response = await fetch(options.getUrl(), requestInit);
+      // In case the browser doesn't handle it, we are transforming the ccetag query parameter to the If-None-Match header 
+      const response = await fetch(url, requestInit);
 
       const { status: statusCode, statusText: reasonPhrase } = response;
       if (statusCode === 200) {
