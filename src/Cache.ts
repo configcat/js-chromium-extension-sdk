@@ -1,37 +1,39 @@
-import type { IConfigCatCache } from "configcat-common";
+import type { IConfigCatCache, IConfigCatKernel } from "configcat-common";
+import { ExternalConfigCache } from "configcat-common";
 
 export class LocalStorageCache implements IConfigCatCache {
+  static setup(kernel: IConfigCatKernel, localStorageGetter?: () => chrome.storage.LocalStorageArea | null): IConfigCatKernel {
+    const localStorage = localStorageGetter?.() ?? window.chrome?.storage?.local;
+    if (localStorage) {
+      kernel.defaultCacheFactory = options => new ExternalConfigCache(new LocalStorageCache(localStorage), options.logger);
+    }
+    return kernel;
+  }
+
+  constructor(private readonly storage: chrome.storage.LocalStorageArea) {
+  }
+
   async set(key: string, value: string): Promise<void> {
-    try {
-      await chrome.storage.local.set({ [key]: this.b64EncodeUnicode(value) });
-    }
-    catch (ex) {
-      // chrome storage is unavailable
-    }
+    await this.storage.set({ [key]: toUtf8Base64(value) });
   }
 
   async get(key: string): Promise<string | undefined> {
-    try {
-      const cacheObj = await chrome.storage.local.get(key);
-      const configString = cacheObj[key];
-      if (configString) {
-        return this.b64DecodeUnicode(configString);
-      }
-    }
-    catch (ex) {
-      // chrome storage is unavailable or invalid cache value.
+    const cacheObj = await this.storage.get(key);
+    const configString = cacheObj[key];
+    if (configString) {
+      return fromUtf8Base64(configString);
     }
   }
+}
 
-  private b64EncodeUnicode(str: string): string {
-    return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (_, p1) {
-      return String.fromCharCode(parseInt(p1, 16))
-    }));
-  }
+export function toUtf8Base64(str: string): string {
+  str = encodeURIComponent(str);
+  str = str.replace(/%([0-9A-F]{2})/g, (_, p1) => String.fromCharCode(parseInt(p1, 16)));
+  return btoa(str);
+}
 
-  private b64DecodeUnicode(str: string): string {
-    return decodeURIComponent(Array.prototype.map.call(atob(str), function (c: string) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
-    }).join(''));
-  }
+export function fromUtf8Base64(str: string): string {
+  str = atob(str);
+  str = str.replace(/[%\x80-\xFF]/g, m => "%" + m.charCodeAt(0).toString(16));
+  return decodeURIComponent(str);
 }
