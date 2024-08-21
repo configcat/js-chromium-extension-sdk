@@ -32,13 +32,13 @@
   "license": "MIT",
   "homepage": "https://configcat.com",
   "dependencies": {
-    "@types/chrome": "0.0.193",
     "configcat-common": "9.3.0",
     "tslib": "^2.4.1"
   },
   "devDependencies": {
     "@ephesoft/webpack.istanbul.loader": "^2.2.0",
     "@types/chai": "4.3.4",
+    "@types/chrome": "^0.0.270",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.53.0",
