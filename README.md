@@ -1,3 +1,7 @@
+| :mega: Important notice |
+|-------------------------|
+| This SDK is superseded by the [new, unified ConfigCat SDK for JavaScript](https://github.com/configcat/js-unified-sdk#configcat-sdk-for-javascript).<br/>This legacy SDK is in maintenance mode now, it will receive only critical security patches until **official support ends on August 31, 2026**.<br/> We recommend migrating to the new SDK as shown [here](https://github.com/configcat/js-unified-sdk#getting-started). |
+
 # ConfigCat SDK for Chromium Extensions
 https://configcat.com
 
